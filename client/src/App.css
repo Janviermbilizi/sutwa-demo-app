@@ -6,6 +6,13 @@ button {
   background-color: aqua;
 }
 
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
 .App {
   text-align: center;
   margin-top: 100px;
