@@ -10,16 +10,11 @@ const router = require("express").Router();
 //const JIRS_2 = "Silver Ivan Janvier Randy";
 
 //ivan idea
-const JIRS_DB = [
-  "Janvier",
-  "Randy",
-  "Silver",
-  "Ivan",
-  "Eric",
-  "Matthew",
-  "Randall",
-  "Nwizu",
-];
+const JIRS_DB = ["Janvier", "Randy", "Silver", "Ivan"];
+
+const LeftPlay = [];
+
+const RightPlay = [];
 
 router.get("/", (req, res) => {
   const JIRS_PICK = JIRS_DB[Math.floor(Math.random() * JIRS_DB.length)];

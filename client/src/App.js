@@ -6,20 +6,22 @@ function App() {
   const [appName, setAppName] = useState("Winner App");
   const [winner, setwinner] = useState(null);
 
-  const getWinner = () => {
-    fetch("http://localhost:8080")
+  const generateWinner = async () => {
+    const thewinner = await fetch("http://localhost:8080")
       .then((response) => response.json())
-      .then((data) => setwinner(data.Winner))
-      .catch((err) => console.log(err));
+      .then((x) => x.Winner);
+
+    const data = { winner: thewinner };
+    setwinner(data.winner);
   };
 
-  //useEffect(getWinner);
+  useEffect(generateWinner);
 
   return (
     <div className="App">
       <h1>{appName}</h1>
 
-      <button onClick={getWinner}>Generate a winner</button>
+      <button onClick={generateWinner}>Generate a winner</button>
 
       <p>The winner of today</p>
 
