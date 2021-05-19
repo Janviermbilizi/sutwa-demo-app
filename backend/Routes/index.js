@@ -21,6 +21,10 @@ router.get("/", (req, res) => {
   res.json({ Winner: JIRS_PICK });
 });
 
+router.get("/participants", (req, res) => {
+  res.status(200).json(JIRS_DB);
+});
+
 router.get("/main", (req, res) => {
   res.status(200).send("Sutwa Test Demo");
 });
