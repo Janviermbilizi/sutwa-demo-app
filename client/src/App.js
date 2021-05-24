@@ -1,6 +1,8 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import together from "./together.jpg";
+import Note from "./components/Note";
+import CreateArea from "./components/CreateArea";
 
 function App() {
   const [appName, setAppName] = useState("Winner App");
@@ -16,7 +18,22 @@ function App() {
     setwinner(data.winner);
   };
 
-  
+  //Added this part for the notes
+  const [notes, setNotes] = useState([]);
+
+  function addNote(newNote) {
+    setNotes(prevNotes => {
+      return [...prevNotes, newNote];
+    });
+  }
+
+  function deleteNote(id) {
+    setNotes(prevNotes => {
+      return prevNotes.filter((noteItem, index) => {
+        return index !== id;
+      });
+    });
+  }
 
   //useEffect(generateWinner);
 
@@ -24,7 +41,7 @@ function App() {
     <div className="App">
       <h1>{appName}</h1>
 
-      <button onClick={generateWinner}>Generate a winner</button>
+      <button classname="b1" onClick={generateWinner}>Generate a winner</button>
 
       <h2>{winner}</h2>
       {/* <button onClick={changeTheAppName}>Change the name of the App</button>
@@ -36,6 +53,18 @@ function App() {
           <li key={i}>{item}</li>
         ))}
       </ol>
+      <CreateArea onAdd={addNote} />
+      {notes.map((noteItem, index) => {
+        return (
+          <Note
+            key={index}
+            id={index}
+            title={noteItem.title}
+            content={noteItem.content}
+            onDelete={deleteNote}
+          />
+        );
+      })}
     </div>
   );
 }
