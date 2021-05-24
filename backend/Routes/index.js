@@ -10,7 +10,7 @@ const router = require("express").Router();
 //const JIRS_2 = "Silver Ivan Janvier Randy";
 
 //ivan idea
-const JIRS_DB = ["Janvier", "Randy", "Silver", "Ivan"];
+const JIRS_DB = ["Janvier", "Randy", "Silver", "Ivan", "Eric", "Bruce"];
 
 const LeftPlay = [];
 
@@ -24,6 +24,12 @@ router.get("/", (req, res) => {
 router.get("/participants", (req, res) => {
   res.status(200).json(JIRS_DB);
 });
+
+//add participant route at /addparticipant that push the participant into the above array JIRS_DB
+
+
+
+
 
 router.get("/main", (req, res) => {
   res.status(200).send("Sutwa Test Demo");

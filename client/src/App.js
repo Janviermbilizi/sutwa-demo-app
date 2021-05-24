@@ -10,49 +10,61 @@ function App() {
   const [participants, setParticipants] = useState([]);
 
   const generateWinner = async () => {
-    const thewinner = await fetch("http://localhost:8080")
+    let thewinner = await fetch("http://localhost:8080")
       .then((response) => response.json())
       .then((x) => x.Winner);
 
-    const data = { winner: thewinner };
+    let data = { winner: thewinner };
     setwinner(data.winner);
+  };
+
+  const getParticipants = async () => {
+    let allparticipants = await fetch("http://localhost:8080/participants")
+      .then((response) => response.json())
+      .then((y) => y);
+
+    let data = allparticipants;
+    setParticipants(data);
   };
 
   //Added this part for the notes
   const [notes, setNotes] = useState([]);
 
   function addNote(newNote) {
-    setNotes(prevNotes => {
+    setNotes((prevNotes) => {
       return [...prevNotes, newNote];
     });
   }
 
   function deleteNote(id) {
-    setNotes(prevNotes => {
+    setNotes((prevNotes) => {
       return prevNotes.filter((noteItem, index) => {
         return index !== id;
       });
     });
   }
 
-  //useEffect(generateWinner);
+  useEffect(getParticipants);
 
   return (
     <div className="App">
       <h1>{appName}</h1>
 
-      <button classname="b1" onClick={generateWinner}>Generate a winner</button>
+      <button classname="b1" onClick={generateWinner}>
+        Generate a winner
+      </button>
 
       <h2>{winner}</h2>
-      {/* <button onClick={changeTheAppName}>Change the name of the App</button>
-      <button onClick={resetTheAppName}>Reset the name of the App</button> */}
-      {/* <img src={together} /> */}
-      <h4>Participants</h4>
       <ol>
+        <h4>Participants</h4>
+
+        {/* add and input and button that receive participant name sent it to the backend */}
+
         {participants.map((item, i) => (
           <li key={i}>{item}</li>
         ))}
       </ol>
+
       <CreateArea onAdd={addNote} />
       {notes.map((noteItem, index) => {
         return (
