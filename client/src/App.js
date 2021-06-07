@@ -9,8 +9,13 @@ function App() {
   const [winner, setwinner] = useState(null);
   const [participants, setParticipants] = useState([]);
 
+  const [count, setCount] = useState(0);
+
+  const add1 = () => setCount(count + 1);
+  const minus1 = () => setCount(count - 1);
+
   const generateWinner = async () => {
-    let thewinner = await fetch("http://localhost:8080")
+    let thewinner = await fetch("http://localhost:5000")
       .then((response) => response.json())
       .then((x) => x.Winner);
 
@@ -19,12 +24,11 @@ function App() {
   };
 
   const getParticipants = async () => {
-    let allparticipants = await fetch("http://localhost:8080/participants")
+    let allparticipants = await fetch("http://localhost:5000/participants")
       .then((response) => response.json())
-      .then((y) => y);
+      .then((res) => res);
 
-    let data = allparticipants;
-    setParticipants(data);
+    setParticipants(allparticipants);
   };
 
   //Added this part for the notes
@@ -55,13 +59,14 @@ function App() {
       </button>
 
       <h2>{winner}</h2>
+      <h4>Participants</h4>
       <ol>
-        <h4>Participants</h4>
-
         {/* add and input and button that receive participant name sent it to the backend */}
 
         {participants.map((item, i) => (
-          <li key={i}>{item}</li>
+          <li style={{ textDecoration: "none" }} key={i}>
+            {item}
+          </li>
         ))}
       </ol>
 
@@ -77,6 +82,14 @@ function App() {
           />
         );
       })}
+      <div>Counter App</div>
+      <h1>{count}</h1>
+      <button className="btn btn-primary" onClick={add1}>
+        +
+      </button>
+      <button className="btn btn-primary" onClick={minus1}>
+        -
+      </button>
     </div>
   );
 }
